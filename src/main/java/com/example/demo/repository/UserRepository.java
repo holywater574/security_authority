@@ -8,5 +8,5 @@ import java.util.Optional;
 //CRUD함수를 JpaRepository가 들고 있다
 public interface UserRepository extends JpaRepository<User, Integer> {
     //findBy규칙 Username문법 findBy가 진짜 찾아주는 명령어임 따로 그시기 할 필요가 없음
-    public User findByUsername(String username);
+    User findByUsername(String username);
 }

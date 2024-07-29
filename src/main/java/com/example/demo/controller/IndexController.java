@@ -53,6 +53,11 @@ public class IndexController {
         return "joinForm";
     }
 
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "access-denied";
+    }
+
     @PostMapping("/join")
     public String join(User user) {
         System.out.println(user);
