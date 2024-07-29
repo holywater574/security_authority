@@ -1,5 +1,7 @@
 package com.example.demo.config;
 
+import com.example.demo.config.oauth.PrincipalOauth2UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -15,6 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
     //해당 매서드의 리턴되는 오브젝트를 IoC로 등록해준다
     @Bean
     public BCryptPasswordEncoder encodePwd() {
@@ -38,8 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/")
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/access-denied");
-
-
+                .accessDeniedPage("/access-denied")
+                .and()
+                .oauth2Login()
+                .loginPage("/loginForm")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
     }
 }
